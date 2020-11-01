@@ -14,6 +14,7 @@ app.use(cors());
 // Setting the view engine for templating
 app.set('view engine', 'ejs');
 
+
 // Middleware (access the data form (Form Data header))
 //app.use(express.urlencoded({ extended: true }));
 //app.use(express.static('public'));
@@ -24,6 +25,12 @@ const PORT = process.env.PORT || 3000;
 app.get('/' , (req,res)=> {
   res.render('pages/index');
 })
+
+app.get('/hello' , (req,res)=> {
+  res.render('pages/index');
+})
+
+app.use('/public', express.static('public'));
 
 app.use('*' , (req,res)=>{
   res.status(404).send('Error 404! the page not found')
