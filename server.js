@@ -46,7 +46,7 @@ app.get('/searches', getBooks )
 
 
 app.use('*' , (req,res)=>{
-  res.status(404).send('Error 404! the page not found')
+  res.render('pages/error');
 })
 
 app.listen(PORT, () => console.log(`Listening to port ${PORT}`));
@@ -62,8 +62,12 @@ function BookInfo (data) {
 
 function getBooks (req,res) {
   console.log('at the bigining of the fun');
-  const url = 'https://www.googleapis.com/books/v1/volumes?q=search+terms'
-  superagent.get(url).then ( data => {
+
+
+  let url1 = 'https://www.googleapis.com/books/v1/volumes?q=intitle';
+  let url2 = 'https://www.googleapis.com/books/v1/volumes?q=inauthor';
+
+  superagent.get(url1).then ( data => {
     console.log('inside the superagent');
     let singleObj = data.body.items;
     let arrayObj = singleObj.map( value => {
@@ -74,6 +78,8 @@ function getBooks (req,res) {
   }).catch( error => console.log('erro ...',error));
 
 }
+
+
 
 
 
