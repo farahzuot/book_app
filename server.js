@@ -30,6 +30,10 @@ app.get('/hello' , (req,res)=> {
   res.render('pages/index');
 })
 
+app.get('/searches' , (req,res)=> {
+  res.render('pages/searches/show');
+})
+
 app.use('/public', express.static('public'));
 
 app.use('*' , (req,res)=>{
