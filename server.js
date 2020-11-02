@@ -77,6 +77,7 @@ function searchBooks(req, res) {
   let arrayObj = [];
   superagent.get(url).then(data => {
     data.body.items.map(value => {
+      
       arrayObj.push(new BookInfo(value))
       //console.log( value);
     })

@@ -7,9 +7,13 @@
 </head>
 <body>
     <header>
-        <% value.forEach(item => { %>
-            <li>title: <%= item.title %> </li>
+        <% value.forEach(obj => { %>
+            <li><img src=' <%= obj.img %>'  alt=""></li>
+            <li>title: <%= obj.title %> </li>
+            <li>authors: <%= obj.authors %></li>
+            <li>description: <%= obj.description %></li>
            <% })  %>
+           
     </header>
 </body>
 </html>
