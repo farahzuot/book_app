@@ -6,9 +6,9 @@ const ejs = require('ejs');
 const superagent = require('superagent');
 require('dotenv').config;
 
-
 const app = express();
 app.use(cors());
+app.use(express.static('views'));
 
 
 
@@ -17,21 +17,21 @@ app.set('view engine', 'ejs');
 
 
 // Middleware (access the data form (Form Data header))
-//app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 //app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
 
 
-app.get('/' , (req,res)=> {
+app.get('/', (req, res) => {
   res.render('pages/index');
 })
 
-app.get('/hello' , (req,res)=> {
+app.get('/hello', (req, res) => {
   res.render('pages/index');
 })
 
-app.get('/searches/new' , (req,res)=> {
+app.get('/searches/new', (req, res) => {
   res.render('pages/searches/show');
 })
 
@@ -39,13 +39,13 @@ app.get('/searches/new' , (req,res)=> {
 
 app.use('/public', express.static('public'));
 
-app.post('/searches', getBooks )
-app.get('/searches', getBooks )
+app.post('/searches', searchBooks)
+//app.get('/searches', searchBooks )
 
 
 
 
-app.use('*' , (req,res)=>{
+app.use('*', (req, res) => {
   res.render('pages/error');
 })
 
@@ -53,30 +53,35 @@ app.listen(PORT, () => console.log(`Listening to port ${PORT}`));
 
 
 
-function BookInfo (data) {
+function BookInfo(data) {
   this.title = data.volumeInfo.title,
   this.authors = data.volumeInfo.authors,
   this.description = data.volumeInfo.description,
   this.img = data.volumeInfo.imageLinks.smallThumbnail;
 }
 
-function getBooks (req,res) {
-  console.log('at the bigining of the fun');
 
-
-  let url1 = 'https://www.googleapis.com/books/v1/volumes?q=intitle';
-  let url2 = 'https://www.googleapis.com/books/v1/volumes?q=inauthor';
-
-  superagent.get(url1).then ( data => {
-    console.log('inside the superagent');
+function searchBooks(req, res) {
+  let type = req.body.type;
+  let checked;
+  //console.log(req.body);
+  if(type ==='title'){
+    checked ='intitle';
+    //console.log(checked);
+  } else if (type === 'author') {
+    checked ='inauthor';
+    //console.log(checked);
+  }
+  let url = `https://www.googleapis.com/books/v1/volumes?q=${checked}`;
+  console.log(url);
+  let arrayObj = [];
+  superagent.get(url).then(data => {
     let singleObj = data.body.items;
-    let arrayObj = singleObj.map( value => {
-      return new BookInfo (value)
+    arrayObj = singleObj.map(value => {
+      new BookInfo(value)
     })
-
-    res.send(arrayObj);
-  }).catch( error => console.log('erro ...',error));
-
+    res.render('pages/searches/result', { value: arrayObj });
+  }).catch(console.error)
 }
 
 
