@@ -23,12 +23,61 @@
 
 
 
-Number and name of feature: ________________________________
+Number and name of feature: 1. Basic server
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: an hour
 
-Start time: _____
+Start time: -
+Finish time: -
 
-Finish time: _____
+Actual time needed to complete: about hour
 
-Actual time needed to complete: _____
+
+
+Number and name of feature: 2. Google Books API
+
+Estimate of time needed to complete: 2 hours
+Start time: -
+Finish time: -
+
+Actual time needed to complete: 2 hours
+
+
+
+Number and name of feature: 3. browse the search results
+
+Estimate of time needed to complete: 2 hours
+Start time: -
+Finish time: -
+
+Actual time needed to complete: 4 hours
+
+
+Number and name of feature: 4. error messages
+
+Estimate of time needed to complete: 20 minutes
+Start time: -
+Finish time: -
+
+Actual time needed to complete: half an hour 
+
+
+Number and name of feature: 5. clean looking UI
+
+Estimate of time needed to complete: 30 minutes
+Start time: -
+Finish time: -
+
+Actual time needed to complete: half an hour 
+
+
+
+Number and name of feature: 6. home page
+
+Estimate of time needed to complete: 30 minutes
+Start time: -
+Finish time: -
+
+Actual time needed to complete: half an hour 
+
+
