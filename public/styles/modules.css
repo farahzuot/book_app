@@ -1,0 +1,43 @@
+h2 {
+    background-color: #AAA;
+}
+
+h1,
+h2 {
+    color: white;
+    padding: 20px;
+}
+
+#container {
+    width: 450px;
+    margin: auto;
+    background-color: #BBB;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+li {
+    list-style: none;
+    padding: 10px;
+}
+
+#second {
+    color: #ffffff;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#third {
+    color: gray;
+    font-size: large;
+    font-style: italic;
+}
+
+#forth {
+    text-align: left;
+    width: 350px;
+    margin: auto;
+    color: gray;
+    overflow: hidden;
+}
+

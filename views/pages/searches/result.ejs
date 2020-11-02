@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/public/styles/reset.css">
+    <link rel="stylesheet" href="/public/styles/base.css">
+    <link rel="stylesheet" href="/public/styles/layout.css">
+    <link rel="stylesheet" href="/public/styles/modules.css">
 </head>
 <body>
-    <header>
-        <% value.forEach(obj => { %>
-            <li><img src=' <%= obj.img %>'  alt=""></li>
-            <li>title: <%= obj.title %> </li>
-            <li>authors: <%= obj.authors %></li>
-            <li>description: <%= obj.description %></li>
-           <% })  %>
-           
+    <header style="height: 50px;">
+        <h1>Best Books !</h1>
+        <img style="width: 25px; height: 25px; float: right;" src="download.png" alt="">
     </header>
+    <main>
+        <h2> Search Result </h2>
+
+        <section id="container">
+            <% value.forEach(obj => { %>
+                <li id="first"><img src=' <%= obj.img %>'  alt=""></li>
+                <li id="second"><%= obj.title %> </li>
+                <li id="third"><%= obj.authors %></li>
+                <li id="forth"><%= obj.description %></li>
+               <% })  %>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
 </body>
 </html>

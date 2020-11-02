@@ -77,10 +77,20 @@ function searchBooks(req, res) {
   let arrayObj = [];
   superagent.get(url).then(data => {
     data.body.items.map(value => {
-      
-      arrayObj.push(new BookInfo(value))
-      //console.log( value);
+
+      let text = req.body.text;
+      if ( checked === 'intitle') {
+        if ( text === value.volumeInfo.title ) {
+          arrayObj.push(new BookInfo(value));
+        } }
+
+      else if ( checked === 'inauthor') {
+        if ( text === value.volumeInfo.authors[0] ) {
+          arrayObj.push(new BookInfo(value));
+        }
+      }
     })
+
     console.log( arrayObj);
     res.render('pages/searches/result', { value: arrayObj });
   }).catch(console.error)
