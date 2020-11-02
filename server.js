@@ -76,10 +76,11 @@ function searchBooks(req, res) {
   console.log(url);
   let arrayObj = [];
   superagent.get(url).then(data => {
-    let singleObj = data.body.items;
-    arrayObj = singleObj.map(value => {
-      new BookInfo(value)
+    data.body.items.map(value => {
+      arrayObj.push(new BookInfo(value))
+      //console.log( value);
     })
+    console.log( arrayObj);
     res.render('pages/searches/result', { value: arrayObj });
   }).catch(console.error)
 }
