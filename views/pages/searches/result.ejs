@@ -7,8 +7,9 @@
 </head>
 <body>
     <header>
-        <p>text: <% =value.type %></p>
-        
+        <% value.forEach(item => { %>
+            <li>title: <%= item.title %> </li>
+           <% })  %>
     </header>
 </body>
 </html>
