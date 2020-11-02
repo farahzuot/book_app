@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../public/styles/base.css">
 </head>
 <body>
-    <header>Hello world!</header>
     <main>
-      
         <section id="container">
             <% value.forEach(obj => { %>
                 <li id="first"><img src=' <%= obj.img %>'  alt=""></li>
@@ -18,8 +15,6 @@
                 <li id="forth"><%= obj.description %></li>
                <% })  %>
         </section>
-        
     </main>
-    
 </body>
 </html>
