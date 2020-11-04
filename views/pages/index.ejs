@@ -4,19 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../public/styles/base.css">
+    <link rel="stylesheet" href="/public/styles/reset.css">
+    <link rel="stylesheet" href="/public/styles/base.css">
+    <link rel="stylesheet" href="/public/styles/layout.css">
+    <link rel="stylesheet" href="/public/styles/modules.css">
 </head>
 <body>
-    <header>Hello world!</header>
+    <header>
+        <h1>
+            Hello world!
+        </h1>
+        </header>
     <main>
       
         <section id="container">
+            <% let count=0; %>
             <% value.forEach(obj => { %>
-                <li id="first"><img src=' <%= obj.img %>'  alt=""></li>
-                <li id="second"><%= obj.title %> </li>
-                <li id="third"><%= obj.authors %></li>
-                <li id="forth"><%= obj.description %></li>
-               <% })  %>
+                <span id="span">
+                    <li id="first"><img src=' <%= obj.img %>'  alt=""></li>
+                    <li id="second"><%= obj.title %> </li>
+                    <li id="third"><%= obj.authors %></li>
+                    <a href="books/<%=obj.id%>">View details</a>
+                </span>
+                
+                <% 
+           count=count+1;
+            })  %>
+            <li class="count">saved books:<%= count %></li>
+            
         </section>
         
     </main>

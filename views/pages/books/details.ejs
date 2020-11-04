@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/public/styles/reset.css">
+    <link rel="stylesheet" href="/public/styles/base.css">
+    <link rel="stylesheet" href="/public/styles/layout.css">
+    <link rel="stylesheet" href="/public/styles/modules.css">
 </head>
 <body>
     <main>
         <section id="container">
-            <% value.forEach(obj => { %>
-                <li id="first"><img src=' <%= obj.img %>'  alt=""></li>
-                <li id="second"><%= obj.title %> </li>
-                <li id="third"><%= obj.authors %></li>
-                <li id="forth"><%= obj.description %></li>
-               <% })  %>
+          
+                <li id="first"><img src=' <%= value.img %>'  alt=""></li>
+                <li id="second"><%= value.title %> </li>
+                <li id="third"><%= value.authors %></li>
+                <li id="forth"><%= value.description %></li>
+          
         </section>
     </main>
 </body>

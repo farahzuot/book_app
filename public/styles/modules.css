@@ -14,7 +14,10 @@ h2 {
     background-color: #BBB;
     border-radius: 5px;
     margin-top: 20px;
+    
 }
+
+
 
 li {
     list-style: none;
@@ -41,3 +44,13 @@ li {
     overflow: hidden;
 }
 
+.count {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    width: 200px;
+    height: 20px;
+    text-align: left;
+    padding-left: 15px;
+    border: 3px solid #1f201d;
+}
