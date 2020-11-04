@@ -1,8 +1,14 @@
 
-main {
+body {
     width: 600px;
     margin: auto;
     text-align: center;
-}
 
+}
+main{
+    margin-top: 7%;
+}
+header  nav{
+    margin-top: -10px;
+}
 

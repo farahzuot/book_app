@@ -10,6 +10,19 @@
     <link rel="stylesheet" href="/public/styles/modules.css">
 </head>
 <body>
+    <header style="height: 50px;">
+        <h1>Best Books !</h1>
+        <nav>
+            <ul>
+                <li id="home">
+                    <a href="../">Home</a>
+                </li>
+                <li id="new">
+                    <a href="../searches/new">Search</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <main>
         <section id="container">
           
@@ -18,6 +31,23 @@
                 <li id="third"><%= value.authors %></li>
                 <li id="forth"><%= value.description %></li>
           
+
+                
+            <h2>Update the book</h2>
+            <form id="update" action="/books/<%= value.id %>?_method=PUT" method="POST">
+                <input name="title" type="text" placeholder="Title" value="<%= value.title %>">
+                <input name="authors" type="text" placeholder="Author" value="<%= value.author %>">
+                <input name="img" type="text" placeholder="Img_URL" value="<%=value.img %>" ></input>
+                <textarea name="description"><%= value.description %></textarea>
+                <input id="updateSub" type="submit" value="Update Details">
+            </form>
+
+            <form action="/books/delete/<%= value.id %>?_method=DELETE" method="POST">
+                <input id="delete" type="submit" value="Delete the book">
+                <input type="hidden" id="book-id" value="<%= value.id %>">
+            </form>
+            
+           <!-- <button id="delete-book">Delete using jQuery</button> -->
         </section>
     </main>
 </body>
