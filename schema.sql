@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS books;
 
 CREATE TABLE books (

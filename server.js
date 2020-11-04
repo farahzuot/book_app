@@ -1,49 +1,39 @@
 'use strict';
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
 const ejs = require('ejs');
 const superagent = require('superagent');
-require('dotenv').config;
 const pg = require('pg');
-
-const app = express();
-app.use(cors());
-app.use(express.static('views'));
-
-
-
-// Setting the view engine for templating
-app.set('view engine', 'ejs');
 const client = new pg.Client(process.env.DATABASE_URL);
-
-
-// Middleware (access the data form (Form Data header))
-app.use(express.urlencoded({ extended: true }));
-//app.use(express.static('public'));
-
 const PORT = process.env.PORT || 3000;
 
 
+
+const app = express();
+app.use(cors());
+app.use('/public', express.static('public'));
+app.use(express.static('views'));
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
+
+
+
+//
+
 app.get('/', homeHandler)
 
-
-app.get('/books/:id', showDetails)
-
-
-app.get('/hello', (req, res) => {
-  res.render('pages/index');
-})
+app.post('/searches', searchBooks)
 
 app.get('/searches/new', (req, res) => {
   res.render('pages/searches/show');
 })
 
+app.post('/books', addBooks)
 
+app.get('/books/:bookId', showDetails)
 
-app.use('/public', express.static('public'));
-
-app.post('/searches', searchBooks)
 
 
 app.use('*', (req, res) => {
@@ -51,6 +41,7 @@ app.use('*', (req, res) => {
 })
 
 
+// constructor function
 
 function BookInfo(data) {
   this.title = data.volumeInfo.title,
@@ -60,6 +51,9 @@ function BookInfo(data) {
 }
 
 
+// functions
+
+let arrayObj = [];
 function searchBooks(req, res) {
   let type = req.body.type;
   let checked;
@@ -69,49 +63,73 @@ function searchBooks(req, res) {
     checked = 'inauthor';
   }
   let url = `https://www.googleapis.com/books/v1/volumes?q=${checked}`;
-  console.log(url);
-  let arrayObj = [];
+  //console.log(url);
   superagent.get(url).then(data => {
+    //console.log(data.body.items[0].volumeInfo.industryIdentifiers.identifier);
+    //console.log(data.body.items[0].volumeInfo.authors[0])
     data.body.items.map(value => {
-
       let text = req.body.text;
       if (checked === 'intitle') {
         if (text === value.volumeInfo.title) {
           arrayObj.push(new BookInfo(value));
         }
       }
-
       else if (checked === 'inauthor') {
+        console.log(value);
+        //console.log('rightfirst')
         if (text === value.volumeInfo.authors[0]) {
+          //console.log('right')
           arrayObj.push(new BookInfo(value));
+          //console.log('arrobj',arrayObj);
         }
       }
     })
-
-    console.log(arrayObj);
+    //console.log(arrayObj);
     res.render('pages/searches/result', { value: arrayObj });
   }).catch(console.error)
 }
 
 
 
-function homeHandler(req, res) {
-  const sql = `SELECT * FROM books;`;
 
+function homeHandler(req, res) {
+
+  const sql = 'SELECT * FROM books;';
   let booksResults;
   client.query(sql).then(data =>{
-    console.log(data.rows);
+    //console.log(data.rows);
     booksResults = data.rows;
-    res.render('pages/index', {value: booksResults});
+    res.render('pages/index',{ value: booksResults })
   }).catch(console.error);
 }
 
 
-function showDetails(req,res){
 
+
+function showDetails(req,res){
+  const sql = 'SELECT * FROM books WHERE id=$1';
+  const idValue = [req.params.bookId];
+  client.query(sql, idValue).then(data => {
+    //console.log('datatest',data.rows[0])
+    res.render('pages/books/details', {value: data.rows[0]})
+  });
 }
+
+
+function addBooks(req,res) {
+  //console.log('req.body=',req.body)
+  const {img, title, authors, description} = req.body;
+  const sql = "INSERT INTO books (img, title, author, description) VALUES($1,$2,$3,$4) RETURNING *;";
+  const addValues = [img, title, authors, description];
+  //console.log('add values =',addValues);
+  client.query(sql,addValues).then((data) => {
+    console.log('datatest',data.rows[0])
+    res.status(201).redirect(`/books/${data.rows[0].id}`);
+  }).catch(console.error);
+}
+
 
 
 client.connect().then(()=>{
   app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
-}).catch( error => console.log(`Could not connect to database\n${error}`));
+}).catch( console.error);

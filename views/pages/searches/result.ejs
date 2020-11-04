@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/public/styles/modules.css">
 </head>
 <body>
-    <header id="resultHearder" style="height: 50px;">
+    <header style="height: 50px;">
         <h1>Best Books !</h1>
         <img style="width: 25px; height: 25px; float: right;" src="download.png" alt="">
     </header>
@@ -23,6 +23,15 @@
                 <li id="second"><%= obj.title %> </li>
                 <li id="third"><%= obj.authors %></li>
                 <li id="forth"><%= obj.description %></li>
+
+
+                <form action="/books" method="POST">
+                    <input name="img" type="hidden" value="<%=obj.img %>" ></input>
+                    <input name="title" type="hidden" value="<%=obj.title %>" ></input>
+                    <input name="authors" type="hidden" value="<%=obj.authors %>" ></input>
+                    <input name="description" type="hidden" value="<%=obj.description %>" ></input>
+                    <button type="submit" >Add the book</button>
+                </form>
                <% })  %>
         </section>
     </main>
